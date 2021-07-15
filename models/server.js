@@ -1,16 +1,25 @@
 const express = require('express');
 const cors = require('cors');
+const { connect } = require('mongoose');
+const { dbConnection } = require('../database/config.db');
 
 class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
 
+        //connect with database
+        this.databaseConnect();
+
         //middlewares
         this.middlewares();
 
         //routes
         this.routes();
+    }
+
+    async databaseConnect() {
+        await dbConnection();
     }
 
     //config middlewares
