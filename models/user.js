@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const UserSchema = Schema({
+    id: {
+        type: String,
+        required: [true, 'id is required'],
+    },
     name: {
         type: String,
         required: [true, 'name is required'],
@@ -32,9 +36,10 @@ const UserSchema = Schema({
     },
 });
 
-//sacamos el password y la versión del body
+//sacamos el password y la versión del body, el _id es el nombre que le da mongo por defecto a la id, la extraemos también para cambiarle el nombre por "id" por estética
 UserSchema.methods.toJSON = function () {
-    const { __v, password, ...user } = this.toObject();
+    const { __v, password, _id, ...user } = this.toObject();
+    user.id = _id;
     return user;
 };
 module.exports = model('User', UserSchema);

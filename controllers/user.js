@@ -69,15 +69,10 @@ const delUser = async (req, res) => {
     res.json({ user });
 };
 
-const patchUser = (req, res) => {
-    res.json({ msg: 'patch API - user controller' });
-};
-
 module.exports = {
     getUsers,
     getUser,
     putUser,
     postUser,
     delUser,
-    patchUser,
 };

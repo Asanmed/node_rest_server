@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { fieldValidation } = require('../middlewares/fieldValidation');
+const { tokenValidation } = require('../middlewares/tokenValidation');
+const { isAdmin, hasRole } = require('../middlewares/roleValidation');
 
 const {
     getUsers,
@@ -17,8 +19,10 @@ const {
 } = require('../utils/db-validators');
 
 const router = new Router();
-
+//get user list
 router.get('/', getUsers);
+
+//get single user info
 router.get(
     '/id',
     [
@@ -29,6 +33,7 @@ router.get(
     getUser
 );
 
+//modify user
 router.put(
     '/:id',
     [
@@ -40,6 +45,7 @@ router.put(
     putUser
 );
 
+//create new user
 router.post(
     '/',
     [
@@ -56,16 +62,18 @@ router.post(
     postUser
 );
 
+//delete user, it does not remove from database, set {"status": false,}
 router.delete(
     '/:id',
     [
+        tokenValidation,
+        //isAdmin,
+        hasRole('ADMIN_ROLE', 'SALES_ROLE'),
         check('id', 'not a valis id').isMongoId(),
         check('id').custom(userByIdValidation),
         fieldValidation,
     ],
     delUser
 );
-
-router.patch('/', patchUser);
 
 module.exports = router;
