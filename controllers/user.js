@@ -1,16 +1,19 @@
-const bcryptjs = require('bcryptjs'); //para encriptar la contraseña
+const bcryptjs = require('bcryptjs'); //password encrytion
 
-const Users = require('../models/user'); //recordar que mongoose le pone el la s User(s)
+const Users = require('../models/user'); //mongoose will add the (s) at the end
+
+//validations are made through middlewares, check routes aechives
 
 const getUsers = async (req, res) => {
     const { limit = 5, from = 0 } = req.query;
 
+    //users aree never phisically deleted from DB, they have (status:true) or (status:false)
     const queryExistingUser = { status: true };
 
     const [total, data] = await Promise.all([
-        //ejecuta todas las promesas
+        //ejecutes all promises
         Users.countDocuments(queryExistingUser),
-        Users.find(queryExistingUser) //muestra usuarios existentes (status:true)
+        Users.find(queryExistingUser)
             .skip(parseInt(from))
             .limit(parseInt(limit)),
     ]);
@@ -33,8 +36,8 @@ const putUser = async (req, res) => {
         rest.password = bcryptjs.hashSync(password, salt);
     }
 
-    const user = await Users.findByIdAndUpdate(id, rest, { new: true }); //new: true es para que devuelva el objeto ya modificado
-    res.json({ msg: 'put API - user controller', user });
+    const user = await Users.findByIdAndUpdate(id, rest, { new: true }); //new: true is needed for the modified object to be returned
+    res.json({ msg: `user updated`, user });
 };
 
 const postUser = async (req, res) => {
@@ -44,14 +47,12 @@ const postUser = async (req, res) => {
 
     const user = new Users(body);
 
-    //validacciones se manejan en los middlewares de las routes
-
-    //encriptar password
+    //password encryption
 
     const salt = bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync(password, salt);
 
-    //Guardar en la base de datos
+    //save to DB
 
     await user.save();
 

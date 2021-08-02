@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { connect } = require('mongoose');
+
 const { dbConnection } = require('../database/config.db');
 
 class Server {

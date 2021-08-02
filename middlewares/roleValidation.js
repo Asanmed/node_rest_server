@@ -1,6 +1,6 @@
-const { response, request } = require('express');
+const { response, request } = require('express'); //only for autocompletion
 
-const isAdmin = (req, res, next) => {
+const isAdmin = (req = request, res = response, next) => {
     console.log(req.body);
     if (!req.user) {
         return res.status(500).json({

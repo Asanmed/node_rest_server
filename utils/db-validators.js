@@ -1,4 +1,4 @@
-const Role = require('../models/Role');
+const Role = require('../models/role');
 const User = require('../models/user');
 
 const roleValidation = async (role = '') => {
@@ -20,7 +20,7 @@ const userByIdValidation = async (id) => {
     const idExists = await User.findById(id);
 
     if (!idExists) {
-        throw new Error(`la id: ${id} does not exists`);
+        throw new Error(`the id: ${id} does not exists`);
     }
 };
 

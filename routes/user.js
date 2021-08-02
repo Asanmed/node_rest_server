@@ -20,12 +20,13 @@ const {
 
 const router = new Router();
 //get user list
-router.get('/', getUsers);
+router.get('/', [tokenValidation], getUsers);
 
 //get single user info
 router.get(
-    '/id',
+    '/:id',
     [
+        tokenValidation,
         check('id', 'not a valis id').isMongoId(),
         check('id').custom(userByIdValidation),
         fieldValidation,
@@ -37,6 +38,9 @@ router.get(
 router.put(
     '/:id',
     [
+        tokenValidation,
+        //isAdmin,
+        hasRole('ADMIN_ROLE', 'SALES_ROLE'),
         check('id', 'not a valis id').isMongoId(),
         check('id').custom(userByIdValidation),
         check('role').custom(roleValidation),

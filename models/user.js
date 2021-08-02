@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const UserSchema = Schema({
     id: {
         type: String,
-        required: [true, 'id is required'],
+        //required: [true, 'id is required'],
     },
     name: {
         type: String,
@@ -24,7 +24,7 @@ const UserSchema = Schema({
     role: {
         type: String,
         required: [true, 'role is required'],
-        enum: ['ADMIN_ROLE', 'USER_ROLE'],
+        enum: ['ADMIN_ROLE', 'USER_ROLE', 'SALES_ROLE'],
     },
     status: {
         type: Boolean,
@@ -36,7 +36,8 @@ const UserSchema = Schema({
     },
 });
 
-//sacamos el password y la versión del body, el _id es el nombre que le da mongo por defecto a la id, la extraemos también para cambiarle el nombre por "id" por estética
+//extract password and version from body
+//_id is the name given by mongodb, we extract it and replace it for id for readability and stetic reasons
 UserSchema.methods.toJSON = function () {
     const { __v, password, _id, ...user } = this.toObject();
     user.id = _id;
