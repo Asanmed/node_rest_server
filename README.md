@@ -32,7 +32,8 @@ request:
 
 ```
 {
-	"name":"Test1",
+	"first_name" :"Test1",
+	"last_name": "tester",
 	"email": "test1@test.com",
 	"password": "123456",
 	"img": "avatar image url",
@@ -43,9 +44,11 @@ request:
 }
 ```
 
-name, email, password, and role are required
+first_name, email, password, and role are required
 
-name: (REQUIRED) any string
+first_name: (REQUIRED) any string
+
+first_name: Any string
 
 email: (REQUIRED) must be a valid and UNIQUE email
 
@@ -67,7 +70,8 @@ id is created by mongo
 {
 	"status": true,
 	"google": false,
-	"name": "Test1",
+	"first_name": "Test1",
+	"last_name": "Tester",
 	"email": "test1@test.com",
 	"img": "avatar image url",
 	"role": "USER_ROLE",
@@ -97,7 +101,8 @@ The server will check if it is a valid email and if the password is not empty, i
 	"user": {
 	"status": true,
 	"google": false,
-	"name": "Test1",
+	"first_name": "Test1",
+	"last_name": "Tester",
 	"email": "test1@test.com",
 	"role": "USER_ROLE",
 	"id": "60f04d76e1c1a928db78c9b6"
@@ -228,7 +233,8 @@ example: PUT ".../users/60f04d7ee1c1a928db78c9ba"
 
 ```
 {
-	"name":"Paco",
+	"first_name":"Paco",
+	"last_name":"Porras",
 	"email": "test4@test.com",
 	"password": "123456",
 	"img": "img url",
@@ -247,7 +253,8 @@ response:
 	"user": {
 	"status": true,
 	"google": false,
-	"name": "Paco",
+	"first_name":"Paco",
+	"last_name":"Porras",
 	"email": "test4@test.com",
 	"role": "ADMIN_ROLE",
 	"img": "img url",
@@ -277,10 +284,11 @@ response:
 	"user": {
 	"status": false,
 	"google": false,
-	"name": "Test4",
+	"first_name": "Test4",
+	"last_name": "Tester",
 	"email": "test4@test.com",
 	"role": "USER_ROLE",
-	"img": "imgagen dde mis huevos",
+	"img": "img url",
 	"id": "60f04d7ee1c1a928db78c9ba"
 	}
 }

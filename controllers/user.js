@@ -29,7 +29,7 @@ const getUser = async (req, res) => {
 
 const putUser = async (req, res) => {
     const { id } = req.params;
-    const { _id, google, password, email, ...rest } = req.body;
+    const { _id, password, email, ...rest } = req.body;
 
     if (password) {
         const salt = bcryptjs.genSaltSync();

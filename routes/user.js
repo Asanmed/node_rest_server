@@ -53,7 +53,7 @@ router.put(
 router.post(
     '/',
     [
-        check('name', 'name required').not().isEmpty(),
+        check('first_name', 'name required').not().isEmpty(),
         check('email', 'invalid email').isEmail(),
         check('email').custom(emailValidation),
         check(
